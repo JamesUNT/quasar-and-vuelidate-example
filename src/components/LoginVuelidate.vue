@@ -4,7 +4,7 @@
       <q-card class="row justify-center">
         <q-card-section class="col-10">
           <q-input class="column" color="indigo-10" dense filled v-model.trim="email" label="Ex: thiago.silva@quasar.org"
-          :rules="[ val => $v.email.required || 'Email obrigatório.',
+          :rules="[ val => $v.email.required || 'Email obrigatório.', // Aplicando as regras importadas do vuelidate
           val => $v.email.email || 'Formato de email inválido.' ]"
           >
             <template v-slot:before>
@@ -42,6 +42,8 @@ export default {
   methods: {
     ...mapActions('example', ['setarSenha']),
     setarSenhaLocal (value) {
+      // Caso precisa validar algo cujo os dados estão numa state.js, você precisará criar um método que venha a executar a action necessária;
+      // por que você precisará usar o $touch() para funcionar.
       this.setarSenha(value)
       this.$v.senha.$touch()
     }
